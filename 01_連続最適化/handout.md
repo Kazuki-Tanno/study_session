@@ -38,6 +38,7 @@
   - 原理的に理解しやすい
 - デメリット
   - ヘッセ行列を陽に求める必要がある
+  - ヘッセ行列の逆行列を計算する必要がある
   - 初期点によっては収束しない
 
 ## 準ニュートン法
@@ -67,6 +68,17 @@
   
   - 単純矩形制約上でのBFGS法
 
+## Newton-CG法
+
+- 共役勾配法を利用することで，ヘッセ行列の逆行列の計算をしなくて済むようにしたニュートン法
+- ヘッセ行列 (または近似行列) があれば，極値を求めることができる
+- ヘッセ行列はわからなくても，ヘシアン・ベクトル積 (ヘッセ行列と特定のベクトルの積) が分かっている場合にも適応できる
+- scipyのNewton-CG法では，勾配ベクトルのみが得られている (ヘッセ行列が得られていない) 状況でも求解することが可能．
+
+### 共役勾配法 (CG法)
+- 連立１次方程式 $A\mathbf{x} = \mathbf{b}$の解 $\mathbf{x}$ を，$A$の逆行列を用いずに数値的に求める方法
+- この $A$ をヘッセ行列 $H$ に，ベクトル $\mathbf{b}$ を勾配ベクトル $\nabla f$ に置き換えることで，ニュートン法における解の更新を計算することができる.
+
 ## Pythonでの実装
 
 - ニュートン法も準ニュートン法もscipyに実装されてる
@@ -84,7 +96,9 @@
 - $x_i = 1\quad \forall i$ のとき，$f(\mathbf{x})=0$ で最小値
 
 - Rosenbrock関数の概形:
+
 <img src="Figure/Contour_plot.png" width=400>
+
 <img src="Figure/Wireframe_plot.png" width=500>
 
 ### 最適化実行時間の比較
@@ -118,3 +132,10 @@
 - BFGS法で時間がかかったら，勾配ベクトルを求めてNewton-CG法を実装することを考えてみたら良さそう
 - 勾配ベクトルを計算する+実装する手間分の時間短縮効果は得られそう
 - ちなみに，ScipyのデフォルトのメソッドはBFGS法
+
+## 参考文献
+- https://ja.wikipedia.org/wiki/BFGS%E6%B3%95
+- https://ja.wikipedia.org/wiki/%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%88%E3%83%B3%E6%B3%95
+- https://ja.wikipedia.org/wiki/%E5%85%B1%E5%BD%B9%E5%8B%BE%E9%85%8D%E6%B3%95
+- http://blog.unnono.net/2011/04/newton-cg.html
+- https://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html

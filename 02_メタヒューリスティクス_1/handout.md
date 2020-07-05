@@ -82,7 +82,7 @@
   - **step 1** : 適当な解を初期解として単純局所探索を行い，局所最適解 $x$ を得る．$x_\mathrm{seed} := x, l:= 1$ とする．
   - **step 2** : $N^{(l)}(x_\mathrm{seed})$ よりランダムに1つ解を選び，$x'$ とする．
   - **step 3** : $x'$ を初期解として単純局所探索を行い，局所最適解 $x$ を得る．
-  - **step 4** : $f(x) \le f(x_\mathrm{seed})$なら (a) を行う．$f(x) > \le f(x_\mathrm{seed})$なら，確率 $p = e ^ {-(f(x) - f(x_\mathrm{seed}))/t}$ で (a) を行い，確率 $1-p$ で (b) を行う．
+  - **step 4** : $f(x) \le f(x_\mathrm{seed})$なら (a) を行う．$f(x) > f(x_\mathrm{seed})$なら，確率 $p = e ^ {-(f(x) - f(x_\mathrm{seed}))/t}$ で (a) を行い，確率 $1-p$ で (b) を行う．
     - **(a)** : $x_\mathrm{seed} := x, l:=1$ とする．($x_\mathrm{seed}$に似た解を探すのを諦めて，別の解の付近を探すようにする)
     - **(b)** : $l:=\min\{l+1, l_\max\}$ とする．(更に広い範囲で $x_\mathrm{seed}$ に似た解を探す)
   - **step 5** : 終了条件を満たせば，暫定解を出力して探索を終了する．そうでなければ，step 2に戻る．
